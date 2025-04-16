@@ -1,0 +1,17 @@
+- Abrir carpeta del proyecto con VSC
+- Instalar dependencias con npm. Terminal VSC: npm i
+- Comprobar la creación de la carpeta /node_modules/
+- Generar automáticamente el autoload.php. Abrir otra Terminal VSC: composer update
+- Comprobar la creación de la carpeta /vendor/composer y autoload.php
+- Ejecutar script de compilación sass con gulp. Abrir otra Terminal VSC: npm run dev o npx gulp
+- Comprobar la creación de la carpeta y archivos /public/build/css/app.css y app.css.map
+- Comprobar la creación de la carpeta y archivos /public/build/js/app.js
+- Servicios, iniciar servidor MySQL80
+- Crear nueva base de datos con TablePlus: uptask_mvc
+- Abrir archivo /includes/database.php y configurar conexión mysqli_connect( ),
+  hostname = 'localhost' - username = 'root' - password = 'root' - database = 'uptask_mvc'
+- Iniciar servidor local PHP. Abrir otra Terminal VSC: cd public, php -S localhost:3000
+- Abrir en el navegador localhost:3000
+- Corregir los errores Deprecated, sustituyendo ${var} por $var, (eliminar los {})
+- En el navegador nos debe poner "Página No Encontrada o Ruta no válida"
+

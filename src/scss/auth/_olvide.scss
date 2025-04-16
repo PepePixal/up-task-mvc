@@ -1,0 +1,25 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.olvide {
+    margin-top: 3rem;
+
+    //logo tipo texto en olvide
+    .uptask {
+        @include m.textoDegradado(v.$rosa);
+    }
+
+    //botón del formulario olvide
+    input[type='submit'] {
+        //aplica mixin boton, requiere fondo y texto
+        @include m.boton(v.$rosa, v.$blanco);
+    }
+
+    // enlaces acciones de la vista olvide
+    .acciones {
+        a {
+            color: v.$rosa;
+        }
+    }
+
+}

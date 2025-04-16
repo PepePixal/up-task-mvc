@@ -1,0 +1,20 @@
+Cronología del proyecto
+
+- Sección Login:
+- creación archivo /controllers/LoginController.php
+- crear rutas para Login, en el router, /public/index.php
+- crear rutas para Crear Cuenta, en el router, /public/index.php
+- crear los métodos login(), logout(), crear() en /controllers/LoginController.php
+- crear rutas para Olvide mi password, en el router, /public/index.php
+- crear rutas para Restablecer password, en el router, /public/index.php
+- crear los métodos olvide() y restablecer() en /controllers/LoginController.php
+- crear rutas para Mensaje confirmar, en el router, /public/index.php
+- crear rutas para Confirmar, en el router, /public/index.php
+- crear los métodos mensaje() y confirmar() en /controllers/LoginController.php
+- comprobar las urls del router.
+- crear las vistas de la sección login, /views/auth/login.php y crear.php
+- crear estilos css en src/css/componentes/_index.scss y _formulario.scss
+
+
+
+

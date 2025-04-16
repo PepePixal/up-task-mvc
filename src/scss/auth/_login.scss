@@ -1,0 +1,24 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.login {
+    margin-top: 3rem;
+
+    //logo tipo texto en login
+    .uptask {
+        @include m.textoDegradado(v.$cyan);
+    }
+
+    //botón del formulario login
+    input[type='submit'] {
+        //aplica mixin boton, requiere fondo y texto
+        @include m.boton(v.$cyan, v.$blanco);
+    }
+
+    // enlaces acciones de la vista login
+    .acciones {
+        a {
+            color: v.$cyan;
+        }
+    }
+}

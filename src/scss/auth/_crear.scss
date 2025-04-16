@@ -1,0 +1,26 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.crear {
+    margin-top: 3rem;
+
+    //logo tipo texto en crear
+    .uptask {
+        @include m.textoDegradado(v.$morado);
+    }
+
+    //botón del formulario crear
+    input[type='submit'] {
+        //aplica mixin boton, requiere fondo y texto
+        @include m.boton(v.$morado, v.$blanco);
+    }
+
+    // enlaces acciones de la vista crear
+    .acciones {
+        a {
+            color: v.$morado;
+        }
+    }
+
+
+}
