@@ -40,6 +40,34 @@ class LoginController {
             //retorna arreglo con alertas
             $alertas = $usuario->validarNuevaCuenta();
 
+            if(empty($alertas)) {
+                //comprobar si el email del formulario ya existe en la tabla de ususrios
+                //el método static where, requiere la columna de la tabla y el valor a buscar,
+                //la tabla la toma del modelo class Usuario,
+                //retorna true o false a $eixisteUsuario
+                $existeUsuario = Usuario::where('email', $usuario->email);
+
+                if($existeUsuario) {
+                    Usuario::setAlerta('error', 'Ya existe un Usuario registrado con ese email');
+                    $alertas = Usuario::getAlertas();
+                } else {
+                    //llama método hashPassword del la clase Usuario en una instancia $usuario
+                    $usuario->hashPassword();
+                    //eliminar la propiedad password2, no se requier para la DB
+                    unset($usuario->password2);
+                    //llama método generarToken
+                    $usuario->generarToken();
+
+                    // Guardar el nuevo usuario en al DB
+                    // el método guardar() retorna bool y un id
+                    $resultado = $usuario->guardar();
+                    
+                    if($resultado) {
+                        header('Location: /mensaje');
+                    }
+
+                }      
+            } 
         }
 
         // Render de la vista crear.php y datos

@@ -3,8 +3,7 @@
     <?php include_once __DIR__ . '/../templates/nombre-sitio.php'; ?>
 
     <div class="contenedor-sm">
-        <p class="descripcion-pagina">Hemos enviado las instrucciones para confirmar tu cuenta, a tu email</p>
-
+        <p class="descripcion-pagina">Hemos enviado las instrucciones a tu email, para confirmar tu Cuenta</p>
 
         <!-- <div class="acciones">
             <a href="/">¿Ya tienes Cuenta? - Inicia Sesión</a>

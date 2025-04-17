@@ -24,6 +24,14 @@ Cronología del proyecto
 - crear nueva platilla vista alertas (de error o exito) en /view/templates/alertas.php
 - insertar la plantilla de alertas con include_once a /views/auth/crear.php
 - etilos .scss para los mensajes de error del formulario, en /src/scss/componentes/_alertas.scss
+- verificar si el usuario ya existes, antes de crear cuenta nueva. /controller/LoginController.php
+- hashear el password, en /models/Usuario.php
+- eliminar password2 en /controllers/LoginController.php
+- generar un token único en /models/Usuario.php
+- guardar el nuevo usuario en la DB y mostrar mensaje, en /controllers/LoginController.php
+
+
+
 
 
  

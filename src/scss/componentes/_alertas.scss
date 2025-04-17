@@ -13,7 +13,8 @@
 
     //y si a demás,el div, tiene la clase error 
     &.error {
-        background-color: lighten(v.$rojo, 60%);
+        //requiere @use "sass:color";
+        background-color: color.adjust(v.$rojo, $lightness: 60%);
         border-left: 1rem solid v.$rojo;
         color: v.$rojo;
 
