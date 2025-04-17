@@ -1,0 +1,21 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+@use "sass:color";
+
+//clase generica alerta, en el div
+.alerta {
+    padding: 1rem 1rem 1rem 2rem;
+    text-transform: uppercase;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    max-width: 80rem;
+
+    //y si a demás,el div, tiene la clase error 
+    &.error {
+        background-color: lighten(v.$rojo, 60%);
+        border-left: 1rem solid v.$rojo;
+        color: v.$rojo;
+
+    }
+}

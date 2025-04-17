@@ -12,8 +12,23 @@ Cronología del proyecto
 - crear rutas para Confirmar, en el router, /public/index.php
 - crear los métodos mensaje() y confirmar() en /controllers/LoginController.php
 - comprobar las urls del router.
-- crear las vistas de la sección login, /views/auth/login.php y crear.php
-- crear estilos css en src/css/componentes/_index.scss y _formulario.scss
+- crear las vistas de la sección login, /views/auth/ .php
+- crear estilos css en src/scss/auth _.scss
+
+- crear tabla usuarios: id (auto-increment), nombre, email, password, token, confirmado
+
+- crear modelo de Usuario en /models/Usuario.php, respetando las columnas de la tabla usuarios
+- sincronizar el modelo Usuario con el $_POST en /controllers/LoginController.php
+- asignar los value="<?php echo …?>" a los inputs vista formulario, para no perder los datos en la validación.
+- crear método de validación del formulario crear cuenta en /models/Usuario.php
+- crear nueva platilla vista alertas (de error o exito) en /view/templates/alertas.php
+- insertar la plantilla de alertas con include_once a /views/auth/crear.php
+- etilos .scss para los mensajes de error del formulario, en /src/scss/componentes/_alertas.scss
+
+
+ 
+
+
 
 
 
