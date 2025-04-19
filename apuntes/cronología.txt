@@ -17,6 +17,7 @@ Cronología del proyecto
 
 - crear tabla usuarios: id (auto-increment), nombre, email, password, token, confirmado
 
+- Sección Crear Cuenta de Usuario:
 - crear modelo de Usuario en /models/Usuario.php, respetando las columnas de la tabla usuarios
 - sincronizar el modelo Usuario con el $_POST en /controllers/LoginController.php
 - asignar los value="<?php echo …?>" a los inputs vista formulario, para no perder los datos en la validación.
@@ -28,7 +29,18 @@ Cronología del proyecto
 - hashear el password, en /models/Usuario.php
 - eliminar password2 en /controllers/LoginController.php
 - generar un token único en /models/Usuario.php
-- guardar el nuevo usuario en la DB y mostrar mensaje, en /controllers/LoginController.php
+- guardar el nuevo usuario en la DB y mostrar mensaje, valien /controllers/LoginController.php
+- En composer.json, "autload" - "psr-4", agregar "Classes\\" : "./classes"
+- Crear una clase para enviar un email de confirmación, con phpmailer. En /clases/Email.php
+- Método enviar email, con phpmailer, de confirmación en /classes/Email.php (servidor email mailtrap.io)
+- Confirmar la cuenta de usuario creada, leyendo el token de la url /confirmar. /controllers/LoginController.php
+- Se el token es ok, asigna 1 a la prop confirmado, elimina el token, elimina la prop password2, guarda el usuario.
+
+- Sección olvidé password:
+
+
+
+
 
 
 

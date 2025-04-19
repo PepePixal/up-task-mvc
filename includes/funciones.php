@@ -7,7 +7,8 @@ function debuguear($variable) : string {
     exit;
 }
 
-// Escapa / Sanitizar el HTML
+// Escapa / Sanitizar el HTML, convierte carácteres especiales
+// en entidades HTML, para evitar inyecciones de código malicioso.
 function s($html) : string {
     $s = htmlspecialchars($html);
     return $s;

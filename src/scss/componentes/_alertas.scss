@@ -11,12 +11,20 @@
     font-size: 1.2rem;
     max-width: 80rem;
 
-    //y si a demás,el div, tiene la clase error 
+    //si contiene la clase .alerta y .error 
     &.error {
         //requiere @use "sass:color";
         background-color: color.adjust(v.$rojo, $lightness: 60%);
         border-left: 1rem solid v.$rojo;
         color: v.$rojo;
-
     }
+
+    //si contiene la clase .alerta y .exito 
+    &.exito {
+        //requiere @use "sass:color";
+        background-color: color.adjust(v.$verde, $lightness: 60%);
+        border-left: 1rem solid v.$verde;
+        color: v.$verde;
+    }
+
 }
