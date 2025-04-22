@@ -54,9 +54,23 @@ Sección Login / Logout Usuario:
 
 
 Sección Proyectos:
-- crear ruta a dashboard en public/index.pho
+- crear ruta a dashboard en public/index.php
 - crear controller DashboardController.php para los proyectos
 - crear nueva vista en view/dashboard/index.php
+- crear vista lateral en view/templates/sidebar.php, insertarla en view/dashboard/index.php
+- crear barra superior del dashboard, con enalce a cerrar sesión /logout, en view/templates/barra.php
+- crear estilos css al dashboard, en src/scss/_index.scss , _dashboard.scss , _sidebar.scss , _barra.scss
+- comprobar si el usuario está logueado isAuth(), para proteger la ruta de dashboard de usuarios no logueados,
+  en /controllers/DashboardController.php
+- cerrar sesión en /controllers/LoginController.php, function logout()
+
+ 
+ 
+
+
+
+
+
 
 
 

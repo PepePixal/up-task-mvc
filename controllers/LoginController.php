@@ -48,10 +48,7 @@ class LoginController {
                         Usuario::setAlerta('error', 'Contraseña no valida');
                     }
                 }
-
-
             } 
-
         }
 
         //obtiene las alertas, en memeria $alertas
@@ -66,8 +63,15 @@ class LoginController {
     }
 
     public static function logout() {
-        echo "Desde LOGOUT";
-        
+        //iniciar session para tener acceos a $_SESSION
+        session_start();
+
+        //limpiar resetear los datos de la sesión
+        $_SESSION = [];
+
+        //redireccionar al usuario a la raiz
+        header('Location: /');
+  
     }
 
     public static function crear(Router $router) {
