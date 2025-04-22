@@ -27,6 +27,26 @@ class Usuario extends ActiveRecord {
         $this->confirmado = $args['confirmado'] ?? 0;
     }
 
+    //validación del login (email y password)
+    public function validarLogin() {
+        if(!$this->email) {
+            self::$alertas['error'][] = 'El Email del Usuario es Obligatorio';
+        }
+
+        //filtrar que sea un email válido con el método php filter_var(),
+        //que retorna true si el email tienen un formato válido
+        if(!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+            self::$alertas['error'][] = 'Email no válido';
+        }
+
+        if(!$this->password) {
+            self::$alertas['error'][] = 'El Password es Obligatorio';
+        }
+
+        return self::$alertas;
+
+    }
+
     //validación de nueva cuenta cuando se envia con POST
     public function validarNuevaCuenta() {
         //si nombre esta vacio o no tiene valor
@@ -54,6 +74,34 @@ class Usuario extends ActiveRecord {
         return self::$alertas;
     }
 
+    // Valida un email
+    public function validarEmail() {
+        //si no hay valor en $this->email 
+        if(!$this->email) {
+            self::$alertas['error'][] = 'El email es obligatorio';
+        }
+        
+        //filtrar que sea un email válido con el método php filter_var(),
+        //que retorna true si el email tienen un formato válido
+        if(!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+            self::$alertas['error'][] = 'Email no válido';
+        }
+
+        return self::$alertas;
+    }
+
+    //Valida el nuevo password
+    public function validarPassword() {
+        if(!$this->password) {
+            self::$alertas['error'][] = 'El Password es Obligatorio';
+        }
+        if(strlen($this->password) < 6) {
+            self::$alertas['error'][] = 'El Password debe tener mínimo 6 carácteres';
+        }
+
+        return self::$alertas;
+    }
+
     // Hashea el password
     public function hashPassword() {
         $this->password = password_hash($this->password, PASSWORD_BCRYPT);
@@ -63,9 +111,5 @@ class Usuario extends ActiveRecord {
     public function generarToken() {
         $this->token = uniqid();
     }
-
-    
-
-
 
 }

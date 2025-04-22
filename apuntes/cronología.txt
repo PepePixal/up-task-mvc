@@ -1,6 +1,6 @@
 Cronología del proyecto
 
-- Sección Login:
+Sección Usuario, Rutas, Métodos y Vistas:
 - creación archivo /controllers/LoginController.php
 - crear rutas para Login, en el router, /public/index.php
 - crear rutas para Crear Cuenta, en el router, /public/index.php
@@ -17,7 +17,7 @@ Cronología del proyecto
 
 - crear tabla usuarios: id (auto-increment), nombre, email, password, token, confirmado
 
-- Sección Crear Cuenta de Usuario:
+Sección Crear Cuenta de Usuario:
 - crear modelo de Usuario en /models/Usuario.php, respetando las columnas de la tabla usuarios
 - sincronizar el modelo Usuario con el $_POST en /controllers/LoginController.php
 - asignar los value="<?php echo …?>" a los inputs vista formulario, para no perder los datos en la validación.
@@ -36,7 +36,35 @@ Cronología del proyecto
 - Confirmar la cuenta de usuario creada, leyendo el token de la url /confirmar. /controllers/LoginController.php
 - Se el token es ok, asigna 1 a la prop confirmado, elimina el token, elimina la prop password2, guarda el usuario.
 
-- Sección olvidé password:
+Sección olvidé password Usuario:
+- validar el email para Resetear password, en /models/Usuario.php
+- buscar el usuario por su email, generar nuevo token, eliminar la propiedad password2, actualizar los datos del usuario,
+  enviar email con instrucciones (nuevo método), imprimir alerta de éxito, en /controllers/LoginController.php
+- crear el método para enviar email con instrucciones y nuevo token en /clases/Email.php
+- validar que el token recibido en la url /restablecer, sea válido, en /controllers/LotinController.php
+- imprimir alertas de error de token, y ocultar formulario de reestablecer, en views/auth/restablecer.php
+- validar el nuevo password, hashearlo, eliminar token y guardar (actualizar) usuario en la DB, redireccionar,
+  en controllers/LoginController.php
+
+Sección Login / Logout Usuario:
+- validar el login (email y password), desde /controllers/LoginController.php
+- revisar que el usuario existe en la DB y está confirmado, en /controllers/LoginController.php
+- verificar que la contraseña del formulario es la del usuario de la DB, en LoginController.php
+- si la contraseña es correcta iniciar sesión, obtener datos del usuario y redirigir, en LoginController.php
+
+
+Sección Proyectos:
+- crear ruta a dashboard en public/index.pho
+- crear controller DashboardController.php para los proyectos
+- crear nueva vista en view/dashboard/index.php
+
+
+
+
+
+
+
+
 
 
 

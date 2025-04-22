@@ -5,6 +5,9 @@
     <div class="contenedor-sm">
         <p class="descripcion-pagina">Inicia Sesión</p>
 
+        <!-- imprime alertas de error de validación, si existen -->
+        <?php include_once __DIR__ . '/../templates/alertas.php'; ?>
+
         <form class="formulario" method="POST" action="/">
             <div class="campo">
                 <label for="email">Email</label>

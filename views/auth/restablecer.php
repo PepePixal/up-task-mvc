@@ -5,20 +5,32 @@
     <div class="contenedor-sm">
         <p class="descripcion-pagina">Teclea tu nuevo Password</p>
 
-        <form class="formulario" method="POST" action="/restablecer">
+        <!-- muestra alertas de restablecer -->
+        <?php include_once __DIR__ . '/../templates/alertas.php'; ?>
 
-            <div class="campo">
-                <label for="password">Password</label>
-                <input 
-                    type="password"
-                    id="password"
-                    placeholder="Tu nuevo Password"
-                    name="password"
-                >
-            </div>
+        <!-- mostrar el formulario si la var $mostrar viene como true del render -->
+        <?php 
+        if ($mostrar) {
+        ?>
+            <!-- sin action, para que se quede en la url con el token -->
+            <form class="formulario" method="POST">
 
-            <input type="submit" class="boton" value="Guardar Password">
-        </form>
+                <div class="campo">
+                    <label for="password">Password</label>
+                    <input 
+                        type="password"
+                        id="password"
+                        placeholder="Tu nuevo Password"
+                        name="password"
+                    >
+                </div>
+
+                <input type="submit" class="boton" value="Guardar Password">
+            </form>
+
+        <?php
+        }
+        ?>
 
         <div class="acciones">
             <a href="/crear">¿No tienes cuenta? - Crear Cuenta</a>
