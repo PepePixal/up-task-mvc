@@ -9,19 +9,20 @@
 
 CREATE TABLE `usuarios` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(30) DEFAULT NULL,
-  `email` varchar(30) DEFAULT NULL,
-  `password` varchar(60) DEFAULT NULL,
-  `token` varchar(15) DEFAULT NULL,
+  `nombre` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `email` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `password` varchar(60) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `token` varchar(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `confirmado` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `token`, `confirmado`) VALUES
-(2, ' pepe', 'admin@admin.com', '$2y$10$a0KA3Thx.hBSHhaHBlfofuY9j1VMywjbcERorBcSFR0HLdr1gnw8i', '680127e3dccc4', 0);
+(11, ' pepe', 'pepe@pixal.es', '$2y$10$b6G2VBvTqbmX44wVVp72Z.bS85w.teSGmBFcDN9i3Z8NdEGMPMyCW', '', 1);
 INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `token`, `confirmado`) VALUES
-(4, ' pepe', 'otro@pixal.es', '$2y$10$vqR8Xb5To7SbNClc67P85eWN7BVAvhPvK1wBk2qAWuUlrzC2KkPDe', '6801297b59591', 0);
-
+(13, ' Sin confirmar', 'sin@confirmar.com', '$2y$10$A2Ws5VWEGEhwBO03K4t3teShFPmR8GP6DbcmpwgcMt5bdHKe5PNaq', '6803d7e0ed7db', 0);
+INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `token`, `confirmado`) VALUES
+(14, ' Confirmada', 'cliente@confirmado.com', '$2y$10$DfyCkDwGi5E8gJup.o3asenCE4Yg7xKcScUOY787UekgdQKhb6dvC', '', 1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

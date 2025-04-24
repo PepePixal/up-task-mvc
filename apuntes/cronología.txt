@@ -86,6 +86,17 @@ Sección Proyectos:
 - comprobar si hay proyectos, iterar y mostrar, el listado de los proyectos del usuario logueado, en /view/dashboard/index.php
 - crear estilos css para el listado de proyectos view/dashboard/index.php, en src/css/dashboard/_proyectos.scss
 
+- crear botón para añadir tareas a un proyecto, en view/dashboard/proyecto.php
+- crear etilos para las tareas de view/dashboard/proyeto.html, en src/scss/dashboard/_tareas.scss
+
+- agregar JavaScritp para mostrar ventana modal con el formulario tareas, cuando botón Agregar Tarea, en src/js/tareas.js
+- el código JS lo agregaremos dentro de funciones IFIE, que se ejecutan automáticamente y protegen sus variables.
+- agregar valor a la var php $script en view/dashboard/proyecto.php, para que se ejecute el scirpt en views/layout.php
+- crear el formulario html para agregar tareas, en la función mostrarFormulario() en src/scss/tareas.js
+- aplicar css al modal, en src/scss/dashboard/_modal.scss
+- agregar un setTimeout() que agrega la clase animar al formulario, en src/scss/dashboard/tareas.js
+
+
 
 
 

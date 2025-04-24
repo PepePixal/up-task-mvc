@@ -1,0 +1,37 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.modal {
+    //posiciona ocupando toda la pantalla
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(0 0 0 / .8);
+
+    .formulario {
+        max-width: 60rem;
+        background-color: v.$blanco;
+        padding: 2rem;
+        //centra horizontalmente
+        margin: 0 auto;
+        //oculta el formulario moviendolo arriba
+        transform: translateY(-30rem);
+        opacity: 0;
+
+        //transición de estilo .formulario al estilo .animar
+        transition-property: all;
+        transition-duration: 500ms;
+        transition-timing-function: ease-out;
+
+        //cuando se agregue la clase animar al formulario
+        &.animar{
+            //centra verticalmente
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 1;
+        }
+    }
+}
