@@ -9,10 +9,30 @@
         flex: 1;
     }
 
+    .contenido {
+        padding: 2rem;
+        
+        .nombre-pagina {
+            font-size: 2.8rem;
+            text-align: center;
+        }
+    }
+
     @include m.tablet {
         display: flex;
         //altura 100% viewport height (ventana navegador)
         height: 100vh;
+    }
+
+    .formulario {
+        //para los input que NO son tipo submit
+        input:not([type="submit"]) {
+            background-color: v.$blanco;
+        }
+        //para los input que son tipo submit
+        input[type="submit"] {
+           @include m.boton(v.$indigo, v.$blanco);
+        }
     }
 
 }

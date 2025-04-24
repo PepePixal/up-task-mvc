@@ -63,6 +63,22 @@ Sección Proyectos:
 - comprobar si el usuario está logueado isAuth(), para proteger la ruta de dashboard de usuarios no logueados,
   en /controllers/DashboardController.php
 - cerrar sesión en /controllers/LoginController.php, function logout()
+- crear rutas para los end-points crear-proyecto y perfil, en /public/index.php
+- crear las vistas header-dashboard.php, footer-dashboard.php, crear-proyecto.php, perfil.php, en views/dashboard/
+- crear las funciones crear_proyecto y perfil en /controllers/DashboardController.php
+- crear operadores ternarios para la class de los <a href >, en /views/templates/sidebar.php
+- crear vista formulario-proyecto.php, en /views/dashboard/
+- crear formulario, insertando formulario-proyecto.php, en la vista views/dashboard/crear-proyecto.php
+- crear estilos css al formunario, en _dashboard.scss
+- crear tabla proyectos (id, proyecto, url, propietarioId ) character_set: utf8mb3 - collation: utf8mb3_unicode_ci
+- crear el modelo de proyectos en /models/
+- crear ruta post para el formulario de proyectos, en /public/index.php
+- validación del formulario proyectos con POST, , método crear_proyecto, en /controllers/DashboardController.php
+- si pasa la validación, Generar una url única, almacenar el usuario creador del proyecto, guardar el proyecto , 
+  en /controllers/DashboardController.php 
+- 
+
+
 
  
  
