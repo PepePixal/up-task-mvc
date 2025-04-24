@@ -1,0 +1,44 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+@use "sass:color"; 
+
+.no-proyectos {
+    a {
+        color: v.$indigo;
+    }
+}
+
+//para los ul
+.listado-proyectos {
+    list-style: none;
+    padding: 0;
+    margin-top: 3rem;
+    //por defecto, tamaño móvil, 1 columna y espaciado
+    @include m.grid(1, 2rem);
+    //tamaño tablet, 2 columnas y espaciado
+    @include m.tablet {
+        @include m.grid(2, 2rem);
+    }
+    //tamaño desktop, 3 columnas y espaciado
+    @include m.desktop {
+        @include m.grid(3, 2rem);
+    }
+
+    //para los li
+    .proyecto {
+        background-color: color.adjust(v.$indigo, $lightness: 10%);
+        min-height: 12rem;
+        padding: 2rem;
+        line-height: 2rem;
+        border-radius: .5rem;
+        display: flex;
+        align-items: center;
+        &:hover {
+            background-color: color.adjust(v.$indigo, $lightness: -10%);
+        }
+
+        a {
+            color: v.$blanco;
+        }
+    }
+}

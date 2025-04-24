@@ -76,12 +76,23 @@ Sección Proyectos:
 - validación del formulario proyectos con POST, , método crear_proyecto, en /controllers/DashboardController.php
 - si pasa la validación, Generar una url única, almacenar el usuario creador del proyecto, guardar el proyecto , 
   en /controllers/DashboardController.php 
-- 
+- crear el endpoint get /proyecto en el /public/index.php
+- crear el método proyecto, con la validación del usuario, en el /controllers/DashboardCrontoller.php
+- crear la vista de proyecto, en /view/dashboard/proyecto.php
+
+- crear nuevo método genérico belongsTo() en /models/ActiveRecord.php, para obtener todos los proyectos del usuario logueado,
+  ya que el método where() solo nos retorna el primer elemento encontrado.
+- obtener los proyectos del usuario logueado, desde el método index() de DashboardController.php
+- comprobar si hay proyectos, iterar y mostrar, el listado de los proyectos del usuario logueado, en /view/dashboard/index.php
+- crear estilos css para el listado de proyectos view/dashboard/index.php, en src/css/dashboard/_proyectos.scss
+
+
 
 
 
  
  
+
 
 
 

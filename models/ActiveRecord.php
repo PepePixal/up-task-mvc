@@ -61,11 +61,20 @@ class ActiveRecord {
         return array_shift( $resultado ) ;
     }
 
-    // Busqueda Where con Columna 
+    // Busqueda Where requiere columna y valor a buscar 
     public static function where($columna, $valor) {
         $query = "SELECT * FROM " . static::$tabla . " WHERE $columna = '$valor'";
         $resultado = self::consultarSQL($query);
+        //retorna solo el primer elemento del arreglo, como un objeto
         return array_shift( $resultado ) ;
+    }
+    
+    // Busqueda belongsTo() (pertenece a), equiere columna y valor a buscar 
+    public static function belongsTo($columna, $valor) {
+        $query = "SELECT * FROM " . static::$tabla . " WHERE $columna = '$valor'";
+        $resultado = self::consultarSQL($query);
+        //retorna un arreglo con todos los objetos elementos encontrados
+        return $resultado;
     }
 
     // SQL para Consultas Avanzadas.
