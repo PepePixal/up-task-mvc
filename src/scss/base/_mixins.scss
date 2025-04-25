@@ -40,6 +40,29 @@
     }
 }
 
+@mixin botonSesion($bgColor, $colorTexto) {
+    background-color: $bgColor;
+    color: $colorTexto;
+    padding: 1rem;
+    font-size: 1.2rem;
+    border-radius: .5rem;
+    display: inline-block;
+    font-weight: 500;
+    border: none;
+    transition-property: background-color;
+    transition-duration: .3s;
+    text-align: center;
+    display: block;
+    width: 100%;
+    @include tablet {
+        width: auto;
+    }
+    &:hover {
+        background-color: color.adjust($bgColor, $lightness: -10%);
+        cursor: pointer;
+    }
+}
+
 @mixin grid($columnas, $espaciado ) {
     display: grid;
     gap: $espaciado;

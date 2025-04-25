@@ -18,20 +18,50 @@
         margin: 0 auto;
         //oculta el formulario moviendolo arriba
         transform: translateY(-30rem);
-        opacity: 0;
+        opacity: 0; //transparente
 
-        //transición de estilo .formulario al estilo .animar
+        //transición del estilo .formulario a .animar y .cerrar
         transition-property: all;
         transition-duration: 500ms;
         transition-timing-function: ease-out;
 
         //cuando se agregue la clase animar al formulario
-        &.animar{
+        &.animar {
             //centra verticalmente
             position: relative;
             top: 50%;
             transform: translateY(-50%);
-            opacity: 1;
+            opacity: 1; //visible
+        }
+
+        //cuando se agrege la clase cerrar al formulario
+        &.cerrar {
+            transform: translateY(-200%);
+            opacity: 0; //transparente
+        }
+
+        //etiqueta legend del form
+        legend {
+            //para poder centrar el texto
+            display: block;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+
+        //contenedor div del submit y el botón cerrar
+        .opciones {
+            display: flex;
+            justify-content: space-between;
+        }
+        //input tipo submit del form
+        .submit-nueva-tarea {
+            @include m.boton(v.$indigo, v.$blanco);
+        }
+        //botón cerrar del form
+        .cerrar-modal {
+            @include m.boton(v.$naranja, v.$blanco);
         }
     }
 }

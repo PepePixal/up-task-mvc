@@ -19,10 +19,8 @@
 
     .cerrar-sesion {
 
-        @include m.boton( color.adjust(v.$indigo, $lightness: 10%), v.$blanco);
-        font-size: 1.2rem;
-        padding: 1rem;
-        border-radius: .5rem;
+        @include m.botonSesion( color.adjust(v.$negro, $lightness: 30%), v.$blanco);
+        
     }
 
     @include m.tablet {

@@ -93,8 +93,12 @@ Sección Proyectos:
 - el código JS lo agregaremos dentro de funciones IFIE, que se ejecutan automáticamente y protegen sus variables.
 - agregar valor a la var php $script en view/dashboard/proyecto.php, para que se ejecute el scirpt en views/layout.php
 - crear el formulario html para agregar tareas, en la función mostrarFormulario() en src/scss/tareas.js
-- aplicar css al modal, en src/scss/dashboard/_modal.scss
+- agregar css al modal, en src/scss/dashboard/_modal.scss
 - agregar un setTimeout() que agrega la clase animar al formulario, en src/scss/dashboard/tareas.js
+- agregar evento click solo al botón cerrar de la ventana modal, en src/js/tareas.js
+- agregar css al formulario del modal, en src/scss/dashboard/_modal.scss
+
+
 
 
 
