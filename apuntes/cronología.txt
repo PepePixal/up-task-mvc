@@ -97,7 +97,19 @@ Sección Proyectos:
 - agregar un setTimeout() que agrega la clase animar al formulario, en src/scss/dashboard/tareas.js
 - agregar evento click solo al botón cerrar de la ventana modal, en src/js/tareas.js
 - agregar css al formulario del modal, en src/scss/dashboard/_modal.scss
+- agregar código js y funciones para el botón crear-tarea, src/js/tareas.js
 
+- crear la tabla de tareas (id, nombre, estado, proyectoId) character_set: utf8mb3 - collation: utf8mb3_unicode_ci
+- crear modelo para las tareas, en models/Tarea.php
+- crear Controller con class vacia, en controllers/TareaController.php
+- crear routing para tareas, en public/index.php
+- crear los métodos vacios de la class TareaController, en controllers/TareaController.php
+
+- enviar una petición al servidor con Tetch API
+.
+
+
+ 
 
 
 

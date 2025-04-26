@@ -50,6 +50,11 @@
             margin-bottom: 2rem;
         }
 
+        input[type="text"] {
+            border: 1px solid v.$gris;
+            border-radius: .5rem;
+        }
+
         //contenedor div del submit y el botón cerrar
         .opciones {
             display: flex;

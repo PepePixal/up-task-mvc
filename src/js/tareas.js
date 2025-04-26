@@ -20,7 +20,7 @@
                 <div class="campo">
                     <label>Tarea</label>
                     <input
-                        type="test"
+                        type="text"
                         name="tarea"
                         id="tarea"
                         placeholder="Agrega nueva tarea"
@@ -63,12 +63,71 @@
                     modal.remove();
                 }, 500);
             }
+
+            //Si el elemento que genera el evento (que obtenemos de e.target), 
+            //contiene la class 'submit-nueva-tarea' (en este caso el boton Crear Tarea)
+            if(e.target.classList.contains('submit-nueva-tarea')) {
+                //llama a la función
+                submitFormularioNuevaTarea();
+            }
         })
 
         //imprimir la ventana modal
-        //selecciona el elemento <body> del dom y le agrega el código html de la var modal 
-        document.querySelector('body').appendChild(modal);
-        
+        //selecciona el elemento con class 'dashboard' y 
+        //le agrega el código html de la var modal, como hijo 
+        document.querySelector('.dashboard').appendChild(modal);
+    }
+
+    function submitFormularioNuevaTarea() {
+        //obtiene el value (la info) del input con id tarea, del formulario,
+        //la función trim() elimina los posibles espacios en blanco antes y despues
+        const tarea = document.querySelector('#tarea').value.trim();
+
+        //si el valor de tarea es un string vacio ''
+        if(tarea === '') {
+            //llama función, enviando argumentos, para el arguento referencia
+            //enviaremos la posición dentro del html form, donde queremos mostrar la alerta
+            mostrarAlerta('El nombre de la Tarea es Obligatorio', 'error', document.querySelector('.formulario legend'));
+            //parar el código aquí 
+            return;
+        }
+
+        //si ha pasado la validación anterior, llama al método, enviando tarea
+        agregarTarea(tarea);
+
+        //Muestra un mensaje en la interfaz, requiere argumentos
+        function mostrarAlerta(mensaje, tipo, referencia) {
+            //Prevenir la creación de multiples alertas.
+            //Selecciona el elemento con clase alerta, si ya existe, y lo asigna
+            const alertaPrevia = document.querySelector('.alerta');
+            //Si existe una alerta previa
+            if(alertaPrevia) {
+                //elimina el elemto con clase alerta
+                alertaPrevia.remove();
+            }
+
+            //crea elemento div y lo asigna a alerta
+            const alerta = document.createElement('DIV');
+            //agrega a alerta la clases: 'alerta' y lo que venga en tipo
+            alerta.classList.add('alerta', tipo);
+            //agrega a alerta lo que venga en mensaje
+            alerta.textContent = mensaje;
+
+            //Inserta la alerta, antes del elemento legned del form
+            referencia.parentElement.insertBefore(alerta, referencia.nextElementSibling);
+
+            //Elimina la alerta automáticamente a los 3 segundos
+            setTimeout(() => {
+                alerta.remove();
+            }, 3000);
+
+        };
+
+        //Consultar al servidor para añadir una nueva tarea al pryecto
+        function agregarTarea(tarea) {
+
+        }
+
     }
 
 })();
