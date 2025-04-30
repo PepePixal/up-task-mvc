@@ -4,7 +4,7 @@ namespace Model;
 
 class Tarea extends ActiveRecord {
     protected static $tabla = 'tareas';
-    protected static $conlumnasDB = ['id', 'nombre', 'estado', 'proyectoId'];
+    protected static $columnasDB = ['id', 'nombre', 'estado', 'proyectoId'];
 
     public $id;
     public $nombre;

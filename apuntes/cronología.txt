@@ -105,12 +105,18 @@ Sección Proyectos:
 - crear routing para tareas, en public/index.php
 - crear los métodos vacios de la class TareaController, en controllers/TareaController.php
 
-- enviar una petición al servidor con Tetch API
-.
-
-
- 
-
+Consulta a la API
+- crear el objeto FormData() y enviar petición fetch() tipo POST desde el método agregarTarea(), en tareas.js,
+  al servidor API en la url (end point) api/tarea, el método crear del controller TareaController.php, responderá a la petición.
+- obtener la url del proyecto, que está en la url del navegador como ?id=…., para obtener el id del proyecto
+- buscar el proyecto, por la url, en la DB, comprobar si existe y si es del mismo usuario que está logueado
+- guardar las tareas del proyecto en la DB
+- crear un API para mostrar las tareas cuyo columna proyectoId, contengan el id del proyecto acual, en index() de TareaController.php
+- consulta al endpoint api/tareas, para obtener las tareas de un proyecto según su id (url), en src/js/tareas.js
+- crear el scripting en src/js/tareas.js, para mostrar las tareas en views/dashboard/proyecto.php
+- crear botones para gestionar las tareas, en src/js/tareas.js e insertar tareas y botones en view/dashboard/proyecto.php
+- crear estilos para el listado de tareas y botones definidos en src/js/tareas.js, estilos en src/scss/dashboard/_tareas.scss
+- agregar nueva tareas y mostrarlas, recargando la página con la técnica del virtual DOM,
 
 
 

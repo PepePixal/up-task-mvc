@@ -7,6 +7,8 @@
     .principal {
         //toma todo el ancho del dashboard
         flex: 1;
+        //permite scroll vertical en la derecha
+        overflow: scroll;
     }
 
     .contenido {
