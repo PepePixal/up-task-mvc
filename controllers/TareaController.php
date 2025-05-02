@@ -76,8 +76,9 @@ class TareaController {
             //genera una alerta tipo exito
             $respuesta = [
                 'tipo' => 'exito',
+                'mensaje' => 'Tarea Creada Correctamente',
                 'id' => $resultado['id'],
-                'mensaje' => 'Tarea Creada Correctamente'
+                'proyectoId' => $proyecto->id
             ];
 
             //retorna la respuesta a la petición, en formato json
@@ -87,7 +88,44 @@ class TareaController {
 
     public static function actualizar() {
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            //valida q el proyectoId (url) recibido en la petición, existe en DB
+            $proyecto = Proyecto::where('url', $_POST['proyectoId']);
 
+            //inica sesion para poder obtener el id del usuario
+            session_start();
+
+            //si tras la busqueda, no viene nada (null) en $proyecto o
+            //el propietarioId del proyecto no es igual al id del usuario logueado
+            if(!$proyecto || $proyecto->propietarioId !== $_SESSION['id']){
+                $respuesta = [
+                    'tipo' => 'error',
+                    'mensaje' => 'Hubo un Error al actualizar la tarea'
+                ];
+                //retorna la respuesta a la petición, en formato json
+                echo json_encode($respuesta);
+                //para el código de la función crear
+                return;
+            }
+
+            //como existe el proyecto buscado y el propietarioId es el usuario logueado.
+            //Nueva instancia del modelo Tarea, enviando el contenido de $_POST: 
+            //el id, nombre, el nuevo estado y el proyectoId (url), de latarea
+            $tarea = new Tarea($_POST);
+            //cambia la url de proyectoId por el correspondiente id del pryecto encontrado
+            $tarea->proyectoId = $proyecto->id;
+            //método que guarda (actualiza) la tarea en la DB y retorna resultado
+            $resultado = $tarea->guardar();          
+            //si existe resultado es ok, genera un arespuesca con alerta exito
+            if($resultado) {
+                $respuesta = [
+                    'tipo' => 'exito',
+                    'id' => $tarea->id,
+                    'proyectoId' => $proyecto->id,
+                    'mensaje' => 'Tarea actualizada Correctamente'
+                ];
+                //retorna, respuesta a la petición, en tipo json
+                echo json_encode(['respuesta' => $respuesta]);
+            }            
         }
     }
 

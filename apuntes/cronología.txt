@@ -116,8 +116,13 @@ Consulta a la API
 - crear el scripting en src/js/tareas.js, para mostrar las tareas en views/dashboard/proyecto.php
 - crear botones para gestionar las tareas, en src/js/tareas.js e insertar tareas y botones en view/dashboard/proyecto.php
 - crear estilos para el listado de tareas y botones definidos en src/js/tareas.js, estilos en src/scss/dashboard/_tareas.scss
-- agregar nueva tareas y mostrarlas, recargando la página con la técnica del virtual DOM,
-
+- mostrar en el listado, la nueva tarea agregada, recargando la página con la técnica virtual DOM, en src/js/tareas.js
+- cambiar el estado de una tarea con el botón (teniendo en cuenta el efecto mutación sobre el virtual DOM), en src/js/tareas.js
+- crear y enviar la petición fetch() tipo POST al servidor, para actualizar la tarea en la DB, en src/js/tareas.js
+- crear la respuesta api para la petición fetch() con method POST, en el método actualizar() de controllers/TareaController.php
+- procesar el resultado de la respuesta del api endpoint, en src/js/tareas.js
+- cambia el estado de la tarea en el Virtual DOM y vuelve a mostrar las tareas, en src/js/Tareas.js
+ 
 
 
 
