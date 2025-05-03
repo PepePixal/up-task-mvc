@@ -15,7 +15,7 @@ CREATE TABLE `proyectos` (
   PRIMARY KEY (`id`),
   KEY `propietarioid` (`propietarioId`),
   CONSTRAINT `proyectos_ibfk_1` FOREIGN KEY (`propietarioId`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO `proyectos` (`id`, `proyecto`, `url`, `propietarioId`) VALUES
 (1, 'Primer Proyecto', '8c04acd55b9975f63fa1eefc8426bb61', 11);
@@ -23,6 +23,9 @@ INSERT INTO `proyectos` (`id`, `proyecto`, `url`, `propietarioId`) VALUES
 (2, ' Segundo proyecto', '2e535b7dff234fde66d5fd13321625cd', 11);
 INSERT INTO `proyectos` (`id`, `proyecto`, `url`, `propietarioId`) VALUES
 (3, ' Tercer proyecto', 'd76b34d513c505d680a843e3244438d2', 11);
+INSERT INTO `proyectos` (`id`, `proyecto`, `url`, `propietarioId`) VALUES
+(4, ' Confirmada Primer Proyecto', 'b21dd81ef4ccffaff523f3bcba522e9d', 14),
+(5, ' Cuarto Proyecto', 'fbc3774481f3591848b0eb09f818411b', 11);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

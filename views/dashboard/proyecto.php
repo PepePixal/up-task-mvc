@@ -18,5 +18,9 @@
 
 <!-- define el valor de la var $script, para la vista principal layout.php -->
 <?php
-    $script = '<script src="build/js/tareas.js"></script>';
+    //para usar las ventanas de alertas de la libreria sweetalert
+    $script = '
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="build/js/tareas.js"></script>
+    ';
 ?>

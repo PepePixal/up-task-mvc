@@ -9,6 +9,7 @@ use Model\Proyecto;
 //que responde a las peticiones Fetch tipo POST, desde tareas.js
 
 class TareaController {
+    
     public static function index() {
         //obtiene el id (url) del proyecto, en $_GET
         $proyectoId = $_GET['id'];
@@ -131,8 +132,42 @@ class TareaController {
 
     public static function eliminar() {
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            //valida q el proyectoId (url) recibido en la petición, existe en DB
+            $proyecto = Proyecto::where('url', $_POST['proyectoId']);
 
+            //inica sesion para poder obtener el id del usuario
+            session_start();
+
+            //si tras la busqueda, no viene nada (null) en $proyecto o
+            //el propietarioId del proyecto no es igual al id del usuario logueado
+            if(!$proyecto || $proyecto->propietarioId !== $_SESSION['id']){
+                $respuesta = [
+                    'tipo' => 'error',
+                    'mensaje' => 'Hubo un Error al eliminar la tarea'
+                ];
+                //retorna la respuesta a la petición, en formato json
+                echo json_encode($respuesta);
+                //para el código de la función crear
+                return;
+            }
+            //como existe el proyecto buscado y el propietarioId es el usuario logueado:
+            //Nueva instancia del modelo Tarea (arreglo), enviando el contenido de $_POST: 
+            //el id, nombre, el nuevo estado y el proyectoId (url), de latarea
+            $tarea = new Tarea($_POST);
+            //cambia la url de proyectoId por el correspondiente id del pryecto encontrado
+            $tarea->proyectoId = $proyecto->id;
+            //elimina la tareas en la DB, con el método de ActiveRecord eliminar()
+            $resultado = $tarea->eliminar();
+
+            //arreglo para enviar el resultado, un mensaje personalizado y el tipo
+            $resultado = [
+                'resultado' => $resultado,
+                'mensaje' => 'Eliminado Correctamente',
+                'tipo' => 'exito'
+            ];
+
+            //envia la respuesta a la petición, en formato json
+            echo json_encode($resultado);
         }
     }
-
 }

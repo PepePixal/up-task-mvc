@@ -123,6 +123,10 @@ Consulta a la API
 - procesar el resultado de la respuesta del api endpoint, en src/js/tareas.js
 - cambia el estado de la tarea en el Virtual DOM y vuelve a mostrar las tareas, en src/js/Tareas.js
  
+- detectar la tarea a eliminar, mostrar alerta de https://sweetalert2.github.io/, antes de eliminar la tarea, en src/js/tareas.js
+- crear la función eliminarTarea() con la consulta fetch() tipo POST a la api enpoint api/tarea/eliminar, en src/js/tareas.js
+- procesar el resultado de la respuesta del api endpoint, en src/js/tareas.js
+- eliminar la tarea del virtual DOM y recargar para mostrar listado de tareas actualizado  
 
 
 

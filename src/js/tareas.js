@@ -96,7 +96,7 @@
             //agrega atributo tipo dataset, tomando el valor de la tarea 0 ó 1
             btnEstadoTarea.dataset.estadoTarea = tarea.estado
             //agrega evento doble click al botón
-            btnEstadoTarea.ondblclick = function() {
+            btnEstadoTarea.onclick = function() {
                 //envia un objeto con copia de la tarea {...tarea}, porque si enviamos el objeto tarea original
                 //y lo modificamos, JS modificará automáticamente el objeto original en el arreglo 
                 //del DOM tareas, esto es lo que se conoce como efecto mutación (modificar), hay que evitarlo.
@@ -111,6 +111,13 @@
             btnEliminarTarea.dataset.idTarea = tarea.id;
             //agrega texto al contenido del botón
             btnEliminarTarea.textContent = 'Eliminar';
+            //agrega evento doble click al botón
+            btnEliminarTarea.ondblclick = function() {
+                //envia un objeto copia de la tarea {...tarea}, porque si enviamos el objeto tarea original
+                //y lo modificamos, JS modificará automáticamente el objeto original en el arreglo 
+                //del DOM tareas, esto es lo que se conoce como efecto mutación (modificar), hay que evitarlo.
+                confirmarEliminarTarea({...tarea});
+            }
             
             //agrega el botón btnEstadoTarea como hijo, al div opcionesDiv 
             opcionesDiv.appendChild(btnEstadoTarea);
@@ -210,7 +217,11 @@
         if(tarea === '') {
             //llama función, enviando argumentos, para el arguento referencia
             //enviaremos la posición dentro del html form, donde queremos mostrar la alerta
-            mostrarAlerta('El nombre de la Tarea es Obligatorio', 'error', document.querySelector('.formulario legend'));
+            mostrarAlerta(
+                'El nombre de la Tarea es Obligatorio',
+                'error',
+                document.querySelector('.formulario legend')
+            );
             //parar el código aquí 
             return;
         }
@@ -367,7 +378,6 @@
             //.json() extrae y convierte el cuerpo de la respuesta, a formato json, par js
             const resultado = await respuesta.json(); 
             
-            
             //si la propiedad tipo: del objeto respuesta en la var resultado es = 'exito',
             //significa que se a guardado correctamente en la DB
             if(resultado.respuesta.tipo === 'exito') {
@@ -394,9 +404,85 @@
 
                 //llama metodo que mostrará las tareas con el estado actualizado
                 mostrarTareas();
-
             }
 
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
+    function confirmarEliminarTarea(tarea) {
+        //mostrar alerta de la libreria https://sweetalert2.github.io/#examples
+        //requiere agregar el escrip en la pagina proyeto.php
+        //<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        Swal.fire({
+            title: "¿Eliminar la tarea?",
+            showCancelButton: true,
+            confirmButtonText: "Si",
+            cancelButtonText: `No`
+          }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+              //llama función enviando la tarea
+              eliminarTarea(tarea);
+            }
+          });  
+    }
+
+    async function eliminarTarea(tarea) {
+        //deconstrucción del objeto tarea en variables
+        const {id, nombre, estado} = tarea;
+
+        //crea objeto vacio tipo FormData(), para enviar con fetch() POST
+        const datos = new FormData();
+        //agrega claves y valores de id, nombre y estado, al FormData datos
+        datos.append('id', id);
+        datos.append('nombre', nombre);
+        datos.append('estado', estado);
+        //agrega clave poryectoId y valor la url obtenida con el método
+        datos.append('proyectoId', obtenerProyecto());
+
+        //para comprobar por consola, la info del objeto datos tipo FormData()
+             // for (let valor of datos.values()) {
+             //   console.log(valor);
+             // }
+        
+        //try catch para la petición fetch() tipo POST, al servidor local
+        try {
+            //url del servidor api endpoint para la petición
+            const url = 'http://localhost:3000/api/tarea/eliminar';
+            //peticion de conexión http con fetch() tipo POST, enviando datos
+            const respuesta = await fetch(url, {
+                method: 'POST',
+                body: datos
+            });
+
+            //repuesta recibida de la api, tras la consulta fetch,
+            //.json() extrae y convierte el cuerpo de la respuesta, a formato json, para js
+            const resultado = await respuesta.json();
+            //si el valor de la llave resultado del objeto resultado es true
+            if(resultado.resultado) {
+                //llamá método enviando mensaje, tipo y ubicación donde mostrarlo
+                // mostrarAlerta(
+                //     resultado.mensaje,
+                //     resultado.tipo,
+                //     document.querySelector('.contenedor-nueva-tarea')
+                // );
+
+                //mostrar alerta de tarea eliminada con la libreria js sweetalert2
+                Swal.fire('Eliminado', resultado.mensaje, 'success');
+
+                //filter() itera las tareas, obteniendo cada tarea (tareaMemoria)
+                //cuyo id sea diferente al id de la tarea eliminada en tarea.id,
+                //creando un nuevo arreglo de objetos tareas, sin la tarea eliminada.
+                //el arrow function => lleva implicito el return
+                tareas = tareas.filter(tareaMemoria => tareaMemoria.id !== tarea.id);
+                //mustra el nuevo listado de tareas sin la tarea eliminada del DOM
+                mostrarTareas();
+            }
+            
+            
         } catch (error) {
             console.log(error);
         }
