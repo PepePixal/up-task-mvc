@@ -4,7 +4,9 @@
 
     //define una variable global, que se requerirá en diferentes funciones,
     //inicializada como arreglo vacio.
-    let tareas = []
+    let tareas = [];
+    //variable global filtradas par las tareas, inicializada arrglo vacio
+    let filtradas = [];
 
     //llama función obtenerTareas()
     obtenerTareas();
@@ -13,7 +15,39 @@
     //Selecciona el botón por su id y lo asigna
     const nuevaTareaBtn = document.querySelector('#agregar-tarea');
     //agrega un evento click al botón y la función que ejecutará
-    nuevaTareaBtn.addEventListener('click', mostrarFormulario);
+    nuevaTareaBtn.addEventListener('click', function(){
+        mostrarFormulario();
+    });
+
+    //Filtros de búsqueda
+    //Selecciona todos los filtros, inputs con id filtros y tipo radio
+    const filtros = document.querySelectorAll('#filtros input[type="radio"');
+    //como no podemos asignar directamente un eventListener a filstros de querySelector,
+    //los iteramos y le asignamos a cada uno de ellos (radio) un eventListener
+    filtros.forEach( radio => {
+        //a cada radio, asigna evento input que ejecuta función filtrarTareas.
+        //Con esta sintaxis del addEventListener, la función envia el evento (e), por defecto
+        radio.addEventListener('input', filtrarTareas);
+    })
+
+    //método que recibe el evento e del input
+    function filtrarTareas(e) {
+        //obtiene el valor del value html del evento input, en el target del evento e
+        const filtro = e.target.value;
+        //según los input radio del html de pryecto.php, el value puede ser: ó '' ó 1 ó 0.
+        // '' todas las tareas, 1 tareas completadas o 0 tareas pendientes.
+        //si el filtro es diferente a todas '', tenemos que filtrar completas o pendientes
+        if(filtro !== '') {
+            //filtra de todas las tareas, cada tarea cuyo valor del atributo estado es === a filtro,
+            //retorna un nuevo arreglo que asigna a filtradas
+            filtradas = tareas.filter(tarea => tarea.estado === filtro);
+        } else {
+            filtradas = [];
+        }
+        
+        //llama método mostrar tareas
+        mostrarTareas();
+    }
 
     //función que consulta a la api para obtener las tareas de un proyecto id url
     async function obtenerTareas() {
@@ -41,8 +75,16 @@
         // limpiar tareas mostradas en el html, antes de mostrarlas de nuevo
         limpiarTareas();
 
-        //si NO hay tareas en tareas
-        if(tareas.length === 0) {
+        //llama métodos para saber el total de tareas pendientes y completas
+        totalPendientes();
+        totalCompletas();
+
+        //si el arreglo filtradas contiene algo ?, lo asigna al arreglo arrayTareas,
+        //: de lo contrario, asigna todas las tareas al arreglo arrayTareas.
+        const arrayTareas = filtradas.length ? filtradas : tareas;
+
+        //si NO hay tareas en arrayTareas:
+        if(arrayTareas.length === 0) {
             //selecciona el elemento html con id listado-tareas,UL en proyecto.php
             const contenedorTareas = document.querySelector('#listado-tareas');
             //crea un elemento html LI
@@ -63,9 +105,9 @@
             1: 'Completa'
         }
 
-        //como el arreglo tareas SI contiene tareas (objetos), 
+        //como el arreglo arrayTareas SI contiene tareas (objetos), 
         //itera con forEach, genera los li y los inyecta en UL de proyecto.php
-        tareas.forEach(tarea => {
+        arrayTareas.forEach(tarea => {
             //crea elemento html LI
             const contenedorTarea = document.createElement('LI');
             //agrega atributo tipo dataset tareaId, con valor tarea.id, al elemento LI
@@ -77,6 +119,13 @@
             const nombreTarea = document.createElement('P');
             //agrega el valor la propiedad nombre del objeto tarea, como texto al P
             nombreTarea.textContent = tarea.nombre;
+            //**Para editar el nombre de las tareas:
+            //Agrega evento dobleclick al nombre de la tarea
+            nombreTarea.ondblclick = function() {
+                //llama método enviando true para indicar que estamos editando la tarea,
+                //y una copia del objeto tarea, iterada, para que no modifique la original
+                mostrarFormulario(true, {...tarea});
+            }
             
             //crea elemento html DIV para las opciones
             const opcionesDiv = document.createElement('DIV');
@@ -136,28 +185,81 @@
         });
     }
 
+    //método para obtener el total de tareas Pendientes
+    function totalPendientes() {
+        //itera tareas y obtiene arreglo con las tareas cuyo atributo estado es 0 (pendiente)
+        const totalPendientes = tareas.filter(tarea => tarea.estado === "0");
+        //selecciona elemento html con id pendientes, (input type radio en proyecto.php)
+        const pendientesRadio = document.querySelector('#pendientes');
 
-    function mostrarFormulario() {
+        //si totalPendientes es 0, NO hay tareas pendientes
+        if(totalPendientes.length === 0) {
+            //deshabilita el input type radio, pendientes
+            pendientesRadio.disabled = true;
+            
+        //de lo contrario, SI hay treas pendientes
+        } else {
+            //habilita el input type radio, pendientes
+            pendientesRadio.disabled = false;
+        }
+    }
+
+    //método para obtener el total de tareas Completas
+    function totalCompletas() {
+        //iteras tareas y obtiene arreglo con las tareas cuyo atributo estado es 1 (completadas)
+        const totalCompletas = tareas.filter(tarea => tarea.estado === "1");
+        //selecciona elemento html con id completadas, (input type radio en proyecto.php)
+        const completasRadio = document.querySelector('#completadas');
+        
+        //si totalCompletas es 0, NO hay tareas copletadas
+        if(totalCompletas.length === 0) {
+            //deshabilita el input type radio, completadas
+            completasRadio.disabled = true;
+            
+            //de lo contrario, SI hay treas pendientes
+        } else {
+            //habilita el input type radio, completadas
+            completasRadio.disabled = false;
+
+        }
+
+
+    }
+
+
+    //muestra la ventana modal, con crear si no recibe argumento o 
+    //con editar la tarea, si recibe true como argumento editar.
+    //Parámetro tarea inicializado vacio, para cuando no se reciba.
+    function mostrarFormulario(editar = false, tarea = {}) {
         //crea elemento div, de hml y lo asigna a modal
         const modal = document.createElement('DIV');
         //agrega la clase 'modal' al elemento div en modal
         modal.classList.add('modal');
         //agrega código html al div que contiene la var modal,
-        //usamos template string ` ` para poder codificar html en varias lineas
+        //usamos template string ` ` para poder codificar html en varias lineas.
+        //En <legned>, si el argumento recibido editar es true agrega un texto, si no agrega otro.
+        //En placeholder, si el argumento editar es true agrega un texto, si no agrega otro.
+        //En value tomará el valor de la propiedad nombre en tarea, si lo recibe y si no, tomara ''.
+        //En imput submit, si el argumento editar es true agrega un texto, si no agrega otro.
         modal.innerHTML = `
             <form class="formulario nueva-tarea">
-                <legend>Agrega una nueva tarea</legend>
+                <legend>${editar ? 'Editar Tarea' : 'Agrega una Tarea'}</legend>
                 <div class="campo">
                     <label>Tarea</label>
                     <input
                         type="text"
                         name="tarea"
                         id="tarea"
-                        placeholder="Agrega nueva tarea"
+                        placeholder="${editar ? 'Editar la Tarea' : 'Agrega una Tarea'}"
+                        value="${tarea.nombre ? tarea.nombre : ''}"
                     />
                 </div>
                 <div class="opciones">
-                    <input type="submit" class="submit-nueva-tarea" value="Agregar Tarea" />
+                    <input 
+                        type="submit" 
+                        class="submit-nueva-tarea" 
+                        value="${editar ? 'Guardar Cambios' : 'Agregar Tarea'}" 
+                    />
                     <button type="button" class="cerrar-modal">Cancelar</button>
                 </div>
             </form>
@@ -178,7 +280,6 @@
             //por defecto el input tipo submit envia formulario y cierra la ventana modal,
             //para prevenir las acciones por defecto del evento en e:
             e.preventDefault();
-
             //En JS delegation, es conocer sobre que elemento se está ejecutando el evento.
             //Si el elemento que genera el evento (que obtenemos de e.target), 
             //contiene la class 'cerrar-modal' (en este caso el boton cerrar):
@@ -197,8 +298,35 @@
             //Si el elemento que genera el evento (que obtenemos de e.target), 
             //contiene la class 'submit-nueva-tarea' (en este caso el boton Crear Tarea)
             if(e.target.classList.contains('submit-nueva-tarea')) {
-                //llama a la función
-                submitFormularioNuevaTarea();
+                //obtiene el value (la info) del input con id tarea, del formulario,
+                //la función trim() elimina los posibles espacios en blanco antes y despues
+                const nombreTarea = document.querySelector('#tarea').value.trim();
+                //validación, si el valor de tarea es un string vacio ''
+                if(nombreTarea === '') {
+                    //llama función, enviando argumentos, para el arguento referencia
+                    //enviaremos la posición dentro del html form, donde queremos mostrar la alerta
+                    mostrarAlerta(
+                        'El nombre de la Tarea es Obligatorio',
+                        'error',
+                        document.querySelector('.formulario legend')
+                    );
+                    //parar el código aquí 
+                    return;
+                }
+
+                //si el argumento editar viene como true, se está editando la tarea
+                if(editar) {
+                    //actualiza el nombre de la tarea original, con el nuevo nombre
+                    tarea.nombre = nombreTarea;
+                    //llama función enviando el objeto tarea
+                    actualizarTarea(tarea);
+
+                //si el argumento editar NO viene como true, se está creando la tarea
+                } else {
+                    //llama función agregarTarea, enviando el nombre de la tarea
+                    agregarTarea(nombreTarea);
+                }
+
             }
         })
 
@@ -206,28 +334,6 @@
         //selecciona el elemento con class 'dashboard' y 
         //le agrega el código html de la var modal, como hijo 
         document.querySelector('.dashboard').appendChild(modal);
-    }
-
-    function submitFormularioNuevaTarea() {
-        //obtiene el value (la info) del input con id tarea, del formulario,
-        //la función trim() elimina los posibles espacios en blanco antes y despues
-        const tarea = document.querySelector('#tarea').value.trim();
-
-        //si el valor de tarea es un string vacio ''
-        if(tarea === '') {
-            //llama función, enviando argumentos, para el arguento referencia
-            //enviaremos la posición dentro del html form, donde queremos mostrar la alerta
-            mostrarAlerta(
-                'El nombre de la Tarea es Obligatorio',
-                'error',
-                document.querySelector('.formulario legend')
-            );
-            //parar el código aquí 
-            return;
-        }
-
-        //si ha pasado la validación anterior, llama al método, enviando tarea
-        agregarTarea(tarea);
     }
 
     //Muestra un mensaje en la interfaz, requiere argumentos
@@ -347,6 +453,7 @@
 
     //actualiza la tarea en la DB
     async function actualizarTarea(tarea){
+    
         //deconstrucción de las propiedades del objeto tareas a variables
         const {estado, id, nombre, proyectoId} = tarea;
         //nueva instancia de FormData() que crear el objeto necesario 
@@ -383,11 +490,26 @@
             if(resultado.respuesta.tipo === 'exito') {
                 //llama metodo que requiere: el mensaje de la alerta, el tipo de alerta y
                 //la referencia ubicación donde se mostrará el mensaje, en proyecto.php
-                mostrarAlerta(
+                    // mostrarAlerta(
+                    //     resultado.respuesta.mensaje,
+                    //     resultado.respuesta.tipo,
+                    //     document.querySelector('.contenedor-nueva-tarea')
+                    // );
+
+                //mostrar alerta de tarea actualizada, con la libreria js sweetalert2
+                Swal.fire(
                     resultado.respuesta.mensaje,
-                    resultado.respuesta.tipo,
-                    document.querySelector('.contenedor-nueva-tarea')
+                    resultado.respuesta.mensaje,
+                    'success'
                 );
+
+                //selecciona la ventana con clase .modal
+                const modal = document.querySelector('.modal');
+                //si existe ventana modal (ya que solo existe para modificar el nombre tarea)
+                if(modal) {
+                    //elimina la ventana modal, cirra
+                    modal.remove();
+                }
 
                 //**Actualizar la vista del estado de la tarea, sin mutar el Virtual DoM */
                 //.map() itera el arreglo de objetos tarea, obteniendo cada tarea (tareaMemoria)
@@ -397,6 +519,7 @@
                     if(tareaMemoria.id === id) {
                         //cambia el estado de tareaMemoria, por el nuevo estado actualizado en estado
                         tareaMemoria.estado = estado;
+                        tareaMemoria.nombre = nombre;
                     }
                     //retorna la tarea con el estado actualizado a tareas
                     return tareaMemoria;
@@ -481,7 +604,6 @@
                 //mustra el nuevo listado de tareas sin la tarea eliminada del DOM
                 mostrarTareas();
             }
-            
             
         } catch (error) {
             console.log(error);

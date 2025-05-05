@@ -126,7 +126,20 @@ Consulta a la API
 - detectar la tarea a eliminar, mostrar alerta de https://sweetalert2.github.io/, antes de eliminar la tarea, en src/js/tareas.js
 - crear la función eliminarTarea() con la consulta fetch() tipo POST a la api enpoint api/tarea/eliminar, en src/js/tareas.js
 - procesar el resultado de la respuesta del api endpoint, en src/js/tareas.js
-- eliminar la tarea del virtual DOM y recargar para mostrar listado de tareas actualizado  
+- eliminar la tarea del virtual DOM filtrando las tareas restantes menos la eliminada (filter()), mostrar alerta y recargar
+  para mostrar listado de tareas actualizado,  en src/js/tareas.js
+
+- editar las tareas con el mismo formulario de ventana modal que las crea, en src/js/tareas.js
+- actualizar las tareas en el servidor y en el virtual DOM, src/js/tareas.js
+
+- formulario de filtro de tareas, con inputs type="radio", todas o pendientes o completadas, en views/dashboard/proyecto.html
+- estilos css al formulario de filtros,  en src/scss/dashboard/_filtros.scss
+- obtener las tareas según el filtro seleccionado, todas, pendientes o completadas y mostrarlas, en src/js/tareas.js
+
+
+
+ 
+  
 
 
 
