@@ -54,8 +54,10 @@
 
 <!-- define el valor de la var $script, para la vista principal layout.php -->
 <?php
-    //para usar las ventanas de alertas de la libreria sweetalert
-    $script = '
+    //la sintaxsis .= hace que estos scripts de la variable $script,
+    //se concatenen a otros scripts y no se sobrescriban,
+    //no se sobrescriban al script de la variable $scirpt en footer-dashboard.php
+    $script .= '
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="build/js/tareas.js"></script>
     ';

@@ -2,12 +2,36 @@
 @use 'base/mixins' as m;
 @use "sass:color"; 
 
+//visible en tamaño mobile, por defecto
+.barra-mobile {
+    background-color: v.$indigo;
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @include m.tablet {
+        display: none;
+    }
+    h1{
+        color: v.$blanco;
+        margin: 0;
+        font-size: 5rem;
+    }
+    .menu{
+        img{
+            width: .8rem;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}
 
+
+//NO se muestra en tamaño mobile, por defecto
 .barra {
-    background-color: v.$blanco;
-    padding: 1rem 2rem;
-    box-shadow: 1px 12px 9px -13px rgba( 0, 0, 0, .4);
-
+    display: none;
+    
     p {
         margin: 0;
         font-size: 1.4rem;
@@ -18,14 +42,17 @@
     }
 
     .cerrar-sesion {
-
         @include m.botonSesion( color.adjust(v.$negro, $lightness: 30%), v.$blanco);
-        
     }
 
+    //barra, se muestra a partir de tamaño tablet
     @include m.tablet {
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        background-color: v.$blanco;
+        padding: 1rem 2rem;
+        box-shadow: 1px 12px 9px -13px rgba( 0, 0, 0, .4);
     }
 }

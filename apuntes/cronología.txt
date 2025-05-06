@@ -136,6 +136,23 @@ Consulta a la API
 - estilos css al formulario de filtros,  en src/scss/dashboard/_filtros.scss
 - obtener las tareas según el filtro seleccionado, todas, pendientes o completadas y mostrarlas, en src/js/tareas.js
 
+- Crear y configurar un menú mobile responsive:
+- Crear menú mobile con div class barra-mobile, en views/templates/barra.php
+- estilos css a barra-mobile y ocultarla a partir de tamaño tablet, en src/scss/dashboard/_barra.scss
+- estilos css a barra para ocultarla en modo mobile y mostrarla a partir de Tablet, en src/scss/dashboard/_barra.scss
+- estilos css a sidebar para que no se muestre en tamaño mobile y mostrarla a partir de tamaño Tablet, en _sidebar.scss
+- agregar el script build/js/app.js a la variable $scritp, en views/dashboard/footer-dashboard.php, para el views/layout.php
+- controlar, con la sintaxis .= , que los scripts de la variable $scirpt no se sobrescriban
+- agregar JavaScript para interactuar con el menú mobile, en src/js/app.js
+- agregar css al menu-mobile para mostrar y ocultar, en src/scss/dashboard/_sidebar.scss
+- agregar botón cerrar al aside sidebar menu-mobile abierto, en views/templates/sidebar.php
+- agregar css al sidebar para mostrar y ocultar, en src/scss/dashboard/_sidebar.scss
+- agregar JavaScript al cerrar menu-mobile, en src/js/app.js
+- agregar css al menu-mobile
+- agregar cerrar sesión al final del sidebar que se mustra solo en menu-mobile, en views/templates/sidebar.php
+
+
+
 
 
  
