@@ -1,0 +1,83 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+@use "sass:color";
+
+
+
+//la media query prefers-color-scheme, permite detectar si el usuario
+//ha configurado el sistema en modo oscuro (dark) o claro (light),
+//y según esté configurado aplica los estilos al body
+
+//este media query se activará si el sistema esta en oscuro
+@media (prefers-color-scheme: dark) {
+    //define variable local
+    $grisOscuro: #2c2c3b;
+
+    //aplica a todo el body
+    body {
+    background-color: $grisOscuro;
+    }
+
+    .descripcion-pagina,
+    .nombre-pagina,
+    .formulario .campo {
+        color: v.$grisMedio;
+    }
+
+    .tagline,
+    .formulario label,
+    .login .acciones a,
+    .crear .acciones a,
+    .olvide .acciones a,
+    .dashboard .enlace {
+        color: v.$blanco;
+    }
+
+    .alerta.error {
+        background-color: v.$blanco;
+    }
+
+    .barra-mobile,
+    .sidebar,
+    .contenedor-sidebar {
+        background-color: color.adjust(v.$grisOscuro, $lightness: -20%);
+    }
+
+    .dashboard {
+        background-color: $grisOscuro;
+    }
+
+    .listado-proyectos .proyecto {
+        background-color: color.adjust(v.$grisOscuro, $lightness: -10%);
+
+    }
+
+    //filtros de las tereas
+    .filtros {
+        background-color: v.$gris;
+        color: v.$blanco;
+
+        h3 {
+            color: v.$blanco;
+        }
+
+        input[type=radio] {
+            accent-color: $grisOscuro;
+        }
+    }
+
+    .tarea p {
+        color: v.$blanco;
+    }
+
+    .modal .formulario {
+        background-color: v.$grisClaro;
+        label {
+            color: v.$negro;
+        }
+        input[type="text"] {
+            border: none;
+            outline: none;
+        }
+    }
+}

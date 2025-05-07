@@ -6,7 +6,7 @@
      donde se mostraran las alertas de validación del form -->
     <?php include_once __DIR__ . '/../templates/alertas.php'; ?>
 
-    <a href="/perfil" class="enlace">Volver a Perfil</a>
+    <a href="/perfil" class="enlace"><span>&#8592</span> Volver a Perfil</a>
 
     <form class="formulario" method="POST" action="/cambiar-password">
         <div class="campo">

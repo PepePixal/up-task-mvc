@@ -166,7 +166,14 @@ Consulta a la API
   corresponde al usuario logueado,  en models/Usuario.php
 - implementar la asignación al usuario del nuevo_pass, hashearlo y guardarlo en la DB, en controllers/DashwordController.php
 
+Sección Dark Mode Modo Oscuro:
+- poner automáticamente el proyecto en modo oscuro, leyendo las preferencias del sistema del usuario, en src/scss/dark/_darkmode.scss
+- ajustar los formularios y enlaces para modo oscuro, en src/scss/dark/_darkmode.scss
+- ajustar proyectos y tareas a modo oscuro, src/scss/dark/_darkmode.scss
 
+
+
+ 
 
 
 
