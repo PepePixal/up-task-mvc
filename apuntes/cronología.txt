@@ -151,6 +151,26 @@ Consulta a la API
 - agregar css al menu-mobile
 - agregar cerrar sesión al final del sidebar que se mustra solo en menu-mobile, en views/templates/sidebar.php
 
+- Sección perfil de usuario donde podrá cambiar su nombre, su email y su contraseña:
+- crear php y htm con formulario method POST, en views/dashboard/perfil.php
+- desarrollar método perfil, en controllers/DashboardController.php
+- crear método vaidar_perfil() en models/Usuario.php
+- validar que el usuario no pone un email que ya existe en la DB y su id no es igual al id del usuario logueado, 
+  guardar los nuevos datos del usuario en la DB, mostrar alerta éxito, controllers/DashboardController.php
+
+- crear ruta endpoint para cambiar-passwor, en public/index.php
+- crear vista con formulario para cambiar el password, en views/dashboard/cambiar-password.php
+- crear enlace a Volver a Perfil y en perfil Cambiar Password, dar estilos a los enlaces en, src/scss/dashboard/_dashboard.scss
+- crear método cambiar_password ,en controllers/DashwordController.php
+- crear métodos nevo_password para validar los poasswords del form y comprobar_password para comprobar que el password actual
+  corresponde al usuario logueado,  en models/Usuario.php
+- implementar la asignación al usuario del nuevo_pass, hashearlo y guardarlo en la DB, en controllers/DashwordController.php
+
+
+
+
+
+
 
 
 

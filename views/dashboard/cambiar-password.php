@@ -6,29 +6,27 @@
      donde se mostraran las alertas de validación del form -->
     <?php include_once __DIR__ . '/../templates/alertas.php'; ?>
 
-    <!-- enlace a endpoint cambiar-password -->
-    <a href="/cambiar-password" class="enlace">Cambiar Password</a>
+    <a href="/perfil" class="enlace">Volver a Perfil</a>
 
-    <form class="formulario" method="POST" action="/perfil">
+    <form class="formulario" method="POST" action="/cambiar-password">
         <div class="campo">
-            <label for="nombre">Nombre</label>
+            <label for="password_actual">Password Actual</label>
             <input 
-                type="text"
-                name="nombre"
-                placeholder="Tu Nombre"
-                value="<?php echo $usuario->nombre; ?>"
+                type="password"
+                name="password_actual"
+                placeholder="Tu Password Actual"
             />
         </div>
         
         <div class="campo">
-            <label for="email">Email</label>
+            <label for="password_nuevo">Password Nueva</label>
             <input 
-                type="email"
-                name="email"
-                placeholder="Tu Email"
-                value="<?php echo $usuario->email; ?>"
+                type="password"
+                name="password_nuevo"
+                placeholder="Tu Nueva Password"
             />
         </div>
+        
 
         <input type="submit" value="Guardar Cambios">
     </form>

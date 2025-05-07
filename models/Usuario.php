@@ -11,9 +11,11 @@ class Usuario extends ActiveRecord {
     public $nombre;
     public $email;
     public $password;
-    public $password2; //solo para la validación del formulario
     public $token;
     public $confirmado;
+    public $password2; //solo para la validación del formulario
+    public $password_actual; //solo para la validación del form cambiar password
+    public $password_nuevo; //solo para la validación del form cambiar password
 
     //constructor
     public function __construct($args = []) {
@@ -21,12 +23,17 @@ class Usuario extends ActiveRecord {
         $this->nombre = $args['nombre'] ?? '';
         $this->email = $args['email'] ?? '';
         $this->password = $args['password'] ?? '';
-        //solo para la validación del formulario
-        $this->password2 = $args['password2'] ?? '';
         $this->token = $args['token'] ?? '';
         $this->confirmado = $args['confirmado'] ?? 0;
-    }
 
+        //solo para la validación del form nuevo usuario
+        $this->password2 = $args['password2'] ?? '';
+    
+        //solo para la validación del form cambiar password
+        $this->password_actual = $args['password_actual'] ?? '';
+        $this->password_nuevo = $args['password_nuevo'] ?? '';
+    }
+    
     //validación del login (email y password)
     public function validarLogin() {
         if(!$this->email) {
@@ -44,7 +51,6 @@ class Usuario extends ActiveRecord {
         }
 
         return self::$alertas;
-
     }
 
     //validación de nueva cuenta cuando se envia con POST
@@ -90,8 +96,8 @@ class Usuario extends ActiveRecord {
         return self::$alertas;
     }
 
-    //Valida el nuevo password
-    public function validarPassword() {
+    //Valida el nuevo password, retorna : array
+    public function validarPassword() : array {
         if(!$this->password) {
             self::$alertas['error'][] = 'El Password es Obligatorio';
         }
@@ -102,13 +108,54 @@ class Usuario extends ActiveRecord {
         return self::$alertas;
     }
 
-    // Hashea el password
-    public function hashPassword() {
+    // Valida los datos del form para cambio de perfil, retorna : array
+    public function validar_perfil() : array {
+        //si no viene contenido en nombre
+        if(!$this->nombre) {
+            self::$alertas['error'][] = 'El Nobre es Obligatorio';
+        }
+        //si no viene contenido en email
+        if(!$this->email) {
+            self::$alertas['error'][] = 'El Email es Obligatorio';
+        }
+        
+        //retorna las alertas
+        return self::$alertas;
+    }
+
+    // Valida los passwords actual y nuevo del form, retorna : array
+    public function nuevo_password() : array {
+        //si password_actual viene vacio
+        if(!$this->password_actual) {
+            self::$alertas['error'][] = 'El Password actual es Obligatorio';
+        }
+        //si password_actual viene vacio
+        if(!$this->password_nuevo) {
+            self::$alertas['error'][] = 'El Password nuevo es Obligatorio';
+        }
+        //si el número de carácteres del password_nuefo es > 6
+        if(strlen($this->password_nuevo) < 6) {
+            self::$alertas['error'][] = 'El Password debe tener mínimo 6 carácteres';
+        }
+
+        return self::$alertas;
+    }
+
+    // comprueba que el pass actual corresponda al del usuario logueado,
+    // retorna : bool
+    public function comprobar_password() : bool {
+        //retorna resultado de verificar, con la función de php password_verify,
+        //si el pass actual es igual al pass ya hasheado del usuario, retorna bool
+        return password_verify($this->password_actual, $this->password);
+    }
+
+    // Hashea el password, no retorna nada : void
+    public function hashPassword() : void {
         $this->password = password_hash($this->password, PASSWORD_BCRYPT);
     }
 
-    // Generar un Token úncico de 13 caracteres
-    public function generarToken() {
+    // Generar un Token úncico de 13 caracteres, no retorna nada : void
+    public function generarToken() : void {
         $this->token = uniqid();
     }
 

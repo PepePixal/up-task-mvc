@@ -41,4 +41,11 @@
         }
     }
 
+    .enlace {
+        color: v.$indigo;
+        &:hover {
+            color: v.$negro;
+        }
+    }
+
 }
