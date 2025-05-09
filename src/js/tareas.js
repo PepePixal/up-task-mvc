@@ -381,7 +381,8 @@
         try {
             //defina la url del servidor api, hacia donde hacemos la petición,
             //en nustro caso localhost y el endpoint api/tarea, del index.php
-            const url = 'http://localhost:3000/api/tarea';
+            //const url = 'http://localhost:3000/api/tarea';
+            const url = '/api/tarea';
             //define la petición fetch() y espera (await) la respuesta retornada
             const respuesta = await fetch(url, {
                 //indica método POST ya que el método por defecto es get (obtener)
@@ -475,7 +476,8 @@
         //try catch para petición post con fetch al servidor
         try {
             //url donde está programada la api del servidor php local
-            const url = 'http://localhost:3000/api/tarea/actualizar'
+            //const url = 'http://localhost:3000/api/tarea/actualizar'
+            const url = '/api/tarea/actualizar'
             //peticion de conexión http con fetch() tipo POST, enviando datos
             const respuesta = await fetch(url, {
                 method: 'POST',
@@ -574,7 +576,8 @@
         //try catch para la petición fetch() tipo POST, al servidor local
         try {
             //url del servidor api endpoint para la petición
-            const url = 'http://localhost:3000/api/tarea/eliminar';
+            //const url = 'http://localhost:3000/api/tarea/eliminar';
+            const url = '/api/tarea/eliminar';
             //peticion de conexión http con fetch() tipo POST, enviando datos
             const respuesta = await fetch(url, {
                 method: 'POST',

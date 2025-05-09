@@ -19,9 +19,9 @@ class Router
 
     public function comprobarRutas()
     {
-
-        //$currentUrl = $_SERVER['PATH_INFO'] ?? '/';
-        $currentUrl = strtok ($_SERVER['REQUEST_URI'], '?') ?? '/';
+        //strok limpia la url, eliminando lo que va despues de ?=.....,
+        //la parte que conocemos como query string
+        $currentUrl = strtok($_SERVER['REQUEST_URI'], '?') ?? '/';
         $method = $_SERVER['REQUEST_METHOD'];
 
         if ($method === 'GET') {

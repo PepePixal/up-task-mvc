@@ -1,0 +1,133 @@
+Deployment - Despliegue de un proyecto en producción al Servidor.
+
+1- Comprobar que todas la URLs y procesos están funcionando correctamente
+2- Se requiere el composer.json en el desarrollo moderno de aplicaciones PHP.
+3- Se requiere Git para el deployment en PHP
+4- No es necesario subir todos los archivos al servidor y algunos por seguridad.
+5- Crear variables de entorno para ocultar variables sensibles como credenciales de acceso a DB.
+7- Instalar, con composer, las dependencias para definir las variables de entorno. La dependencia se agregará en nuestro archivo composer.json
+	Terminal de VSC: composer require vlucas/phpdotenv
+	
+8- Crear archivo .env en la carpeta includes/ , donde definiremos las variables de entorno de desarrollo local. El propósito principal del archivo .env es mantener configuraciones sensibles y específicas del entorno, fuera del código fuente. Los valores de las variables de entorno son diferentes en desarrollo que en producción. Es recomendable poner un prefijo que indique de que es la variable, tipo DB_. Cuando se definen variables de entorno en PHP se genera y se agregan a la superglobal $_ENV donde tendremos acceso a ellas. 
+	Contenido del archivo env:
+
+	DB_HOST = localhost
+	DB_USER = root
+	DB_PASS = root
+	DB_NAME = uptask_mvc
+
+9- Para usar o vincular las variables de entorno al archivo database.php del proyecto, lo tenemos que hacer a través de la dependencia instalada vlucas/phpdotenv, agregando código al archivo app.php
+	Contenido actualizado del archivo /inclues/app.php: 
+	
+	<?php
+	use Dotenv\Dotenv;
+	use Model\ActiveRecord;
+	require __DIR__ . '/../vendor/autoload.php';
+	//para poder usar las variables de entorno
+	$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+	$dotenv->safeLoad();
+	require 'funciones.php';
+	require 'database.php';
+	// Conectarnos a la base de datos
+	ActiveRecord::setDB($db);
+ 
+10- Las variables de entorno definidas se agregan a la superglobal $_ENV, permitiendonos tenemos acceso a ellas y por tanto ya las podemos utilizar.
+	Contenido actualizado del archivo /includes/database.php:
+	
+	<?php
+	$db = mysqli_connect(
+		$_ENV['DB_HOST'],
+		$_ENV['DB_USER'],
+ 		$_ENV['DB_PASS'],
+		$_ENV['DB_NAME'],
+	);
+
+	$db->set_charset('utf8');
+
+	if (!$db) {
+		echo "Error: No se pudo conectar a MySQL.";
+		echo "errno de depuración: " . mysqli_connect_errno();
+		echo "error de depuración: " . mysqli_connect_error();
+		exit;
+	}
+
+
+11- Probar el proyecto en local, para garantizar que todo funciona bien tras la definición y configuración de los archivos con variables de entorno.
+
+12- Crear variables de entorno para ocultar las credenciales configuradas para envio de emails, en clases/Email.php
+	Agregar estas variables de entorno al archivo /includes/.env :
+	
+	EMAIL_HOST = sandbox.smtp.mailtrap.io
+	EMAIL_PORT = 2525
+	EMAIL_USER = 3ce59248bc2a6a
+	EMAIL_PASS = a994d27eabc711
+
+	Modificar estas líneas de código, con las variables de entorno, en todo el archivo /clases/Email.php :
+	
+	$mail->Host = $_ENV['EMAIL_HOST'];
+        $mail->Port = $_ENV['EMAIL_PORT'];
+        $mail->Username = $_ENV['EMAIL_USER'];
+        $mail->Password = $_ENV['EMAIL_PASS'];
+
+13- Crear una variable de entorno para la URL del servidor del proyecto, para el proyecto en local será = a localhost:3000 local y para el proyecto en el servidor será la URL del dominio en el servidor.
+	Agregar esta variable de entorno, para el proyecto en local, al archivo /includes/.env :
+	
+	APP_URL = http://localhost:3000
+
+	En el todo el archivo /clases/Email.php, sustituir:
+		
+		http://localhost:3000
+	por:
+
+		" . $_ENV['APP_URL'] . "
+	
+	incluyendo las comillas ".
+
+
+14- Probar que el proyecto web funciona todo correctamente, tras las modificaciones de los archivos.
+
+15- Modificar rutas URLs locales en los archivos JavaScript, para que sean URLs dinámicas, src/js/app.js y tareas.js
+	Sustituir las rutas locales tipo:
+
+	const url = 'http://localhost:3000/api/tarea';
+	
+	si el backend y los archivos de JS del proyecto, van a estar en el mismo dominio, sustituir por:
+
+	const url = 'http:/api/tarea';
+
+	si el backend y los archivos de JS no van a estar en el mismo dominio, usaremos location.origin que nos retorna la URL principal del proyecto, en local retornaría 'http://localhost:3000'. Sustituir por:
+	
+	const url = '${location.origin}/api/tareas';
+
+16- Modificar el código del método comprobarRutas() en Router.php.
+	Sustituir, si es necesario: 
+	       
+	$currentUrl = $_SERVER['PATH_INFO'] ?? '/';
+
+	por:
+
+        $currentUrl = strtok($_SERVER['REQUEST_URI'], '?') ?? '/';
+
+17- Probar que el proyecto web funciona todo correctamente, tras las modificaciones de los archivos.
+
+
+	
+	
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

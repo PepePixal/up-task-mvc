@@ -21,11 +21,11 @@ class Email {
         //configuración servidor SMTP para PHPMailer de mailtrap.io
         $mail = new PHPMailer();
         $mail->isSMTP();
-        $mail->Host = 'sandbox.smtp.mailtrap.io';
+        $mail->Host = $_ENV['EMAIL_HOST'];
         $mail->SMTPAuth = true;
-        $mail->Port = 2525;
-        $mail->Username = '3ce59248bc2a6a';
-        $mail->Password = 'a994d27eabc711';
+        $mail->Port = $_ENV['EMAIL_PORT'];
+        $mail->Username = $_ENV['EMAIL_USER'];
+        $mail->Password = $_ENV['EMAIL_PASS'];
         
         //información para el usuario
         $mail->setFrom('cuentas@uptask.com');
@@ -37,7 +37,7 @@ class Email {
 
         $contenido = '<html>';
         $contenido .= "<p><strong>Hola " . $this->nombre . "</strong> Has creado tu cuenta en Uptask.com, solo debes confirmarla en el siguiente enlace</p>";
-        $contenido .= "<p>Presiona aquí: <a href='http://localhost:3000/confirmar?token=" . $this->token . "'>Confirmar Cuenta</a></p>";
+        $contenido .= "<p>Presiona aquí: <a href='" . $_ENV['APP_URL'] . "/confirmar?token=" . $this->token . "'>Confirmar Cuenta</a></p>";
         $contenido .= "<p>Si tu no creaste esta cuenta, ignora este mensaje</p>";
         $contenido .= '</html>';
 
@@ -55,11 +55,11 @@ class Email {
         //configuración servidor SMTP para PHPMailer de mailtrap.io
         $mail = new PHPMailer();
         $mail->isSMTP();
-        $mail->Host = 'sandbox.smtp.mailtrap.io';
+        $mail->Host = $_ENV['EMAIL_HOST'];
         $mail->SMTPAuth = true;
-        $mail->Port = 2525;
-        $mail->Username = '3ce59248bc2a6a';
-        $mail->Password = 'a994d27eabc711';
+        $mail->Port = $_ENV['EMAIL_PORT'];
+        $mail->Username = $_ENV['EMAIL_USER'];
+        $mail->Password = $_ENV['EMAIL_PASS'];
         
         //información para el usuario
         $mail->setFrom('cuentas@uptask.com');
@@ -69,9 +69,11 @@ class Email {
         $mail->isHTML(TRUE);
         $mail->CharSet = 'UTF-8';
     
+        //Usa la sintaxis .= para contatenar el contenido de $contenido, en varias lineas.
+        //La superglobal $_ENV['APP_URL] contiene el valor de la variable de entorno APP_Url
         $contenido = '<html>';
         $contenido .= "<p><strong>Hola " . $this->nombre . "</strong> Has solicitado resetear tu Passoword de Uptask.com, solo debes confirmarlo en el siguiente enlace</p>";
-        $contenido .= "<p>Presiona aquí: <a href='http://localhost:3000/restablecer?token=" . $this->token . "'>Reestablecer Password</a></p>";
+        $contenido .= "<p>Presiona aquí: <a href='" . $_ENV['APP_URL'] . "/restablecer?token=" . $this->token . "'>Reestablecer Password</a></p>";
         $contenido .= "<p>Si tu no creaste esta cuenta, ignora este mensaje</p>";
         $contenido .= '</html>';
     
