@@ -110,7 +110,7 @@ Deployment - Despliegue de un proyecto en producción al Servidor.
 
 17- Probar que el proyecto web funciona todo correctamente, tras las modificaciones de los archivos.
 
-18- Agregar al archivo .gitignore, las carpetas que no necesitamos porque son solo para producción y archivos no queramos porque contiene las variables de entorno, para que no se suban al repositorio de GitHub, ya que es desde donde subiremos el proyecto al hosting. Subir la última versión del proyecto a GitHub
+18- Agregar al archivo .gitignore, las carpetas que no necesitamos porque son solo para producción y archivos no queramos porque contiene las variables de entorno, para que no se suban al repositorio de GitHub, ya que es desde donde subiremos el proyecto al hosting. Subir la última versión del proyecto al repositorio de GitHub.
 	Agregar las carpetas y archivos a .gitignore:
 	
 	/node_modules/
