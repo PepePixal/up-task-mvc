@@ -110,8 +110,26 @@ Deployment - Despliegue de un proyecto en producción al Servidor.
 
 17- Probar que el proyecto web funciona todo correctamente, tras las modificaciones de los archivos.
 
-
+18- Agregar al archivo .gitignore, las carpetas que no necesitamos porque son solo para producción y archivos no queramos porque contiene las variables de entorno, para que no se suban al repositorio de GitHub, ya que es desde donde subiremos el proyecto al hosting. Subir la última versión del proyecto a GitHub
+	Agregar las carpetas y archivos a .gitignore:
 	
+	/node_modules/
+	/vendor/
+	/includes/.env/
+	 
+
+19- Una vez preparado el proyecto para el despliegue o deployment, seguiremos los pasos de la guía de Julio para desplegar el proyecto PHP MVC en los servidores DomCloud. Seguiremos la sección Proyectos PHP MVC, no la de Laravel.
+	Enlace de la guía:
+
+	https://blogjc.vercel.app/post/easy-deploy-php-laravel
+
+	Enlace del hosting DomCloud:
+	
+	https://domcloud.co/
+
+20- Tenemos que tener un repositorio Public en GitHub de nuestro proyecto web, ya actualizado y preparado para el deployment, con las variables de entorno rutas de los archivos, etc. Si no lo tenemos, tendremos que crearnos una cuenta en GitHub.com y crear el repositorio del proyecto web, esto está también explicado en la guía de Julio
+
+21- Iniciar sesión o loguearnos en domcloud.co con la misma cuenta que tengamos en GitHub (Sign with GitHub), esto nos permitirá subir y actualizar en código del proyecto que tengamos en el repositorio de GitHub, subirlo al hosting DomCloud mediante webhooks. 
 	
 
 	
